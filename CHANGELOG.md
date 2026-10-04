@@ -4,6 +4,15 @@ All notable changes to anypia_engine are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.1] — 2026-10-04
+
+### Fixed
+
+- The special minimum PIA and MFB for benefits paid in July 2001 now use
+  the amounts with the corrected 1999 COLA, as AnyPIA does
+  (PiaParamsLC::getSpecMinPia/getSpecMinMfb test amend01, July 2001); the
+  port switched in August. Found by comparing pyanypia with SSA's C++.
+
 ## [0.2.0] — 2026-08-23
 
 The first published release. Version 0.1.0 existed only as a development

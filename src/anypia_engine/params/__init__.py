@@ -330,13 +330,18 @@ class Params:
 
     # ---- special minimum ----
 
+    # The corrected 1999 COLA reaches the special minimum from July 2001:
+    # PiaParamsLC's getSpecMinPia and getSpecMinMfb both test amend01 (the
+    # present-law PiaParams::getSpecMinMfb hard-codes August, but the
+    # calculator uses the LC class).
+
     def get_spec_min_pia(self, at: MonthYear, yoc: int) -> float:
         return self._spec_min_get(self._specmin_pia, self._specmin_pia_2001,
-                                  self._specmin_pia_extra, at, yoc)
+                                  self._specmin_pia_extra, at, yoc, 7)
 
     def get_spec_min_mfb(self, at: MonthYear, yoc: int) -> float:
         return self._spec_min_get(self._specmin_mfb, self._specmin_mfb_2001,
-                                  self._specmin_mfb_extra, at, yoc)
+                                  self._specmin_mfb_extra, at, yoc, 7)
 
     def _spec_min_get(
         self,
@@ -345,10 +350,11 @@ class Params:
         changed: list[float],
         at: MonthYear,
         yoc: int,
+        correction_month: int,
     ) -> float:
         year = at.year
         if at.month < self.month_beninc(year):
-            if year == 2001 and at.month >= 8:
+            if year == 2001 and at.month >= correction_month:
                 return aug2001[yoc - 1] if yoc > 0 else 0.0
             if year == self._spec_min_split:
                 # before the benefit increase in the year a reform's new

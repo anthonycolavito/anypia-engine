@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "anypia-engine"
-version = "0.2.0"
+version = "0.2.1"
 description = "Pure-Python port of SSA's AnyPIA Detailed Calculator (2026 TR), penny-exact vs the C++ oracle"
 readme = "README.md"
 license = "MIT"
