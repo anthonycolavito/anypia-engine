@@ -1,5 +1,5 @@
 // Dumps every law parameter PiaParamsAny holds, per assumption alternative,
-// as JSON — the ground truth for pyanypia's params differential tests.
+// as JSON — the ground truth for anypia_engine's params differential tests.
 //
 // Usage: paramdump ALT > params_altN.json   (ALT in {1,2,3})
 //

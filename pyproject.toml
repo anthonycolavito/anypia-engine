@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pyanypia"
+name = "anypia-engine"
 version = "0.2.0"
 description = "Pure-Python port of SSA's AnyPIA Detailed Calculator (2026 TR), penny-exact vs the C++ oracle"
 readme = "README.md"
@@ -31,17 +31,17 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/anthonycolavito/pyanypia"
-Repository = "https://github.com/anthonycolavito/pyanypia"
-Issues = "https://github.com/anthonycolavito/pyanypia/issues"
-Changelog = "https://github.com/anthonycolavito/pyanypia/blob/main/CHANGELOG.md"
+Homepage = "https://github.com/anthonycolavito/anypia-engine"
+Repository = "https://github.com/anthonycolavito/anypia-engine"
+Issues = "https://github.com/anthonycolavito/anypia-engine/issues"
+Changelog = "https://github.com/anthonycolavito/anypia-engine/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 pandas = ["pandas>=2.0"]
 dev = ["pytest>=8", "ruff==0.16.*", "mypy==2.3.*"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/pyanypia"]
+packages = ["src/anypia_engine"]
 
 # An allowlist, because the default is everything not in .gitignore --
 # and hatchling does not read .git/info/exclude, so a file git considers
@@ -78,7 +78,7 @@ markers = [
 [tool.mypy]
 python_version = "3.11"
 strict = true
-files = ["src/pyanypia"]
+files = ["src/anypia_engine"]
 
 # pandas is an optional extra, so its stubs are not a build requirement
 [[tool.mypy.overrides]]

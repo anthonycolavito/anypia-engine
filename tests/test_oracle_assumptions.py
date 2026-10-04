@@ -9,8 +9,8 @@ Every other sweep uses 1, 2 or 3, so this adjustment went unexercised.
 
 import pytest
 
-from pyanypia import compute
-from pyanypia.params import params_for
+from anypia_engine import compute
+from anypia_engine.params import params_for
 from tests.oracle_util import (
     assert_case_matches,
     assert_rejects_like_oracle,

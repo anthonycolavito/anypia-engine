@@ -7,7 +7,7 @@ against.
 
 import pytest
 
-from pyanypia import compute
+from anypia_engine import compute
 from tests.oracle_util import (
     assert_case_matches,
     load_reform_sweep,

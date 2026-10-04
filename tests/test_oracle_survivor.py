@@ -2,7 +2,7 @@
 
 import pytest
 
-from pyanypia import compute
+from anypia_engine import compute
 from tests.oracle_util import (
     assert_case_matches,
     assert_rejects_like_oracle,

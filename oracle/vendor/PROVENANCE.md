@@ -20,5 +20,5 @@ Chief Actuary (OACT) at ssa.gov (Detailed Calculator "source code" download).
 
 This source code is a work of the United States Government and is in the
 public domain under 17 U.S.C. § 105. It is redistributed here for
-reproducible differential testing of the `pyanypia` port against the official
+reproducible differential testing of the `anypia_engine` port against the official
 calculator.

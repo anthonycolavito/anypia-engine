@@ -1010,7 +1010,7 @@ def _write_atomically(path: pathlib.Path, text: str) -> None:
     """Write via a temporary file and rename.
 
     Writing in place truncates before the first byte is produced, so a
-    failure part way through -- pyanypia not importable, say -- leaves a
+    failure part way through -- anypia_engine not importable, say -- leaves a
     committed fixture empty and the repository dirty. Nothing should be
     able to corrupt a golden input by being run wrong.
     """

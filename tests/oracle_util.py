@@ -73,7 +73,7 @@ def load_reform_sweep(
 
 def reform_params(variant: str, alt: int = 2):  # type: ignore[no-untyped-def]
     """The parameters a sweep variant's reform produces."""
-    from pyanypia.params import present_law
+    from anypia_engine.params import present_law
 
     if variant == "present_law":
         return present_law(alt)
@@ -81,18 +81,18 @@ def reform_params(variant: str, alt: int = 2):  # type: ignore[no-untyped-def]
         sys.path.insert(0, str(ORACLE))
     import reform_specs
 
-    from pyanypia.law import reformed_params
+    from anypia_engine.law import reformed_params
 
     return reformed_params(reform_specs.BY_NAME[variant].reform, alt=alt)
 
 
 def worker_from_spec(spec: dict[str, Any]):  # type: ignore[no-untyped-def]
-    """Builds a pyanypia Worker from a generator CaseSpec dict, mirroring
+    """Builds a anypia_engine Worker from a generator CaseSpec dict, mirroring
     what the oracle reads from the .pia file."""
     from datetime import date
 
-    from pyanypia import BenefitType, DisabilityPeriod, MonthYear, Worker
-    from pyanypia.worker import MilitaryService
+    from anypia_engine import BenefitType, DisabilityPeriod, MonthYear, Worker
+    from anypia_engine.worker import MilitaryService
 
     y, m, d = spec["dob"]
     ent = MonthYear(*spec["ent"]) if spec.get("ent") else None
@@ -134,7 +134,7 @@ def worker_from_spec(spec: dict[str, Any]):  # type: ignore[no-untyped-def]
             cessation_pia=spec.get("cessation2_pia", 0.0),
             cessation_mfb=spec.get("cessation2_mfb", 0.0),
         ))
-    from pyanypia import FamilyMember
+    from anypia_engine import FamilyMember
 
     family = []
     for fm in spec.get("family", []):
@@ -181,7 +181,7 @@ def worker_from_spec(spec: dict[str, Any]):  # type: ignore[no-untyped-def]
 
 def _projection_from_spec(spec):  # type: ignore[no-untyped-def]
     """The .pia earnings-projection lines (07/08/20), if the case has any."""
-    from pyanypia.worker import EarningsProjection
+    from anypia_engine.worker import EarningsProjection
 
     types = {int(k): v for k, v in (spec.get("earn_types") or {}).items()}
     if not (spec.get("proj_back") or spec.get("proj_fwrd") or types):
@@ -242,14 +242,14 @@ def assert_case_matches(r, expected):  # type: ignore[no-untyped-def]
 
 
 def assert_rejects_like_oracle(spec, expected, alt=2):  # type: ignore[no-untyped-def]
-    """When the oracle errored on a case, pyanypia must reject it too,
+    """When the oracle errored on a case, anypia_engine must reject it too,
     with the same AnyPIA error code."""
     import re
 
     import pytest
 
-    from pyanypia import compute
-    from pyanypia.errors import PiaError
+    from anypia_engine import compute
+    from anypia_engine.errors import PiaError
 
     m = re.search(r"PiaException: (\d+)", expected["error"])
     assert m, f"unparseable oracle error: {expected['error']}"
@@ -257,5 +257,5 @@ def assert_rejects_like_oracle(spec, expected, alt=2):  # type: ignore[no-untype
     with pytest.raises(PiaError) as exc_info:
         compute(worker_from_spec(spec), alt=alt)
     assert exc_info.value.code == code, (
-        f"oracle code {code}, pyanypia code {exc_info.value.code}"
+        f"oracle code {code}, anypia_engine code {exc_info.value.code}"
     )

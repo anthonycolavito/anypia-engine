@@ -6,8 +6,8 @@ from datetime import date
 
 import pytest
 
-import pyanypia as pia
-from pyanypia.law import (
+import anypia_engine as pia
+from anypia_engine.law import (
     BendPointFraction,
     BendPointMinusConstant,
     ColaChange,
@@ -57,7 +57,7 @@ def test_compare_applies_the_reform() -> None:
 
 
 def test_compare_rejects_a_non_reform() -> None:
-    with pytest.raises(TypeError, match="must be a pyanypia.law.Reform"):
+    with pytest.raises(TypeError, match="must be a anypia_engine.law.Reform"):
         pia.compare(WORKER, "hold the retirement age at 65")  # type: ignore[arg-type]
 
 

@@ -36,7 +36,7 @@ def test_readme_quotes_real_output() -> None:
     actually prints for the README's own worker."""
     from datetime import date
 
-    import pyanypia as pia
+    import anypia_engine as pia
 
     worker = pia.Worker(
         dob=date(1960, 3, 15),

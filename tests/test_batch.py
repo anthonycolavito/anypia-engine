@@ -6,8 +6,8 @@ from datetime import date
 
 import pytest
 
-from pyanypia import BenefitType, MonthYear, Worker, compute
-from pyanypia.batch import compute_iter, compute_many
+from anypia_engine import BenefitType, MonthYear, Worker, compute
+from anypia_engine.batch import compute_iter, compute_many
 
 AWI_ISH = {y: 20000.0 + 900.0 * (y - 1980) for y in range(1980, 2026)}
 
@@ -84,8 +84,8 @@ def test_a_reform_survives_the_process_boundary() -> None:
     never left this process, answered under the reform. Both sizes here
     straddle MIN_PARALLEL for that reason.
     """
-    from pyanypia.batch import MIN_PARALLEL
-    from pyanypia.law import NraChange, Reform, reformed_params
+    from anypia_engine.batch import MIN_PARALLEL
+    from anypia_engine.law import NraChange, Reform, reformed_params
 
     params = reformed_params(Reform(nra=NraChange(1990, 2100, variant=1)))
     baseline = compute_many(make_workers(1), processes=1)[0]
@@ -104,7 +104,7 @@ def test_a_reform_survives_the_process_boundary() -> None:
 def test_wide_frame_round_trip() -> None:
     pd = pytest.importorskip("pandas", reason="pandas extra not installed")
 
-    from pyanypia.batch import compute_frame
+    from anypia_engine.batch import compute_frame
 
     workers = make_workers(6)
     rows = []
@@ -129,7 +129,7 @@ def test_wide_frame_round_trip() -> None:
 def test_long_frame_round_trip() -> None:
     pd = pytest.importorskip("pandas", reason="pandas extra not installed")
 
-    from pyanypia.batch import compute_frame
+    from anypia_engine.batch import compute_frame
 
     workers = make_workers(4)
     rows = []

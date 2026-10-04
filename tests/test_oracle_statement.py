@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from pyanypia.engine.statement import StatementType, calculate_statement
+from anypia_engine.engine.statement import StatementType, calculate_statement
 from tests.oracle_util import load_sweep, worker_from_spec
 
 SWEEP = load_sweep("pebs_v1")

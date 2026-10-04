@@ -2,7 +2,7 @@
 
 import pytest
 
-from pyanypia import compute
+from anypia_engine import compute
 from tests.oracle_util import assert_case_matches, load_sweep, worker_from_spec
 
 SWEEP = load_sweep("retire_v1")

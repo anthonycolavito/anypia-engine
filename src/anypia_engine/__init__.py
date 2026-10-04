@@ -1,0 +1,131 @@
+"""anypia_engine: pure-Python port of SSA's AnyPIA Detailed Calculator (2026 TR)."""
+
+from __future__ import annotations
+
+from dataclasses import dataclass
+
+from anypia_engine.dates import Age, MonthYear
+from anypia_engine.engine.statement import (
+    StatementEstimate,
+    StatementResults,
+    StatementType,
+    calculate_statement,
+)
+from anypia_engine.errors import MissingInput, PiaError
+from anypia_engine.law import Law, Reform
+from anypia_engine.params import Params, present_law
+from anypia_engine.results import MethodResult, Results, results_from_context
+from anypia_engine.worker import (
+    BenefitType,
+    DisabilityPeriod,
+    FamilyMember,
+    Sex,
+    Worker,
+)
+
+__version__ = "0.2.0"
+
+__all__ = [
+    "Age",
+    "BenefitType",
+    "Comparison",
+    "DisabilityPeriod",
+    "FamilyMember",
+    "Law",
+    "MethodResult",
+    "MissingInput",
+    "MonthYear",
+    "Params",
+    "PiaError",
+    "Reform",
+    "Results",
+    "Sex",
+    "StatementEstimate",
+    "StatementResults",
+    "StatementType",
+    "Worker",
+    "calculate_statement",
+    "compare",
+    "compute",
+    "present_law",
+]
+
+
+def compute(
+    worker: Worker,
+    *,
+    params: Params | None = None,
+    alt: int = 2,
+) -> Results:
+    """Computes a worker's benefit under present law.
+
+    ``params`` defaults to present law under Trustees Report alternative
+    ``alt`` (2 = intermediate).
+    """
+    from anypia_engine.engine.compute import calculate
+
+    if params is not None and alt != 2:
+        raise ValueError(
+            "pass params or alt, not both: params already carries its own "
+            "assumptions, so alt would be ignored"
+        )
+    if params is None:
+        params = present_law(alt)
+    ctx = calculate(worker, params)
+    return results_from_context(ctx)
+
+
+@dataclass(frozen=True)
+class Comparison:
+    """One worker's benefit under present law and under a reform."""
+
+    baseline: Results
+    reformed: Results
+
+    @property
+    def pia_change(self) -> float:
+        return self.reformed.pia - self.baseline.pia
+
+    @property
+    def benefit_change(self) -> float:
+        return self.reformed.monthly_benefit - self.baseline.monthly_benefit
+
+    @property
+    def benefit_change_percent(self) -> float:
+        base = self.baseline.monthly_benefit
+        return 100.0 * self.benefit_change / base if base else 0.0
+
+    def detail(self) -> str:
+        return "\n".join([
+            f"PIA      {self.baseline.pia:10.2f} -> "
+            f"{self.reformed.pia:10.2f}  ({self.pia_change:+.2f})",
+            f"benefit  {self.baseline.monthly_benefit:10.2f} -> "
+            f"{self.reformed.monthly_benefit:10.2f}  "
+            f"({self.benefit_change:+.2f}, "
+            f"{self.benefit_change_percent:+.1f}%)",
+        ])
+
+
+def compare(
+    worker: Worker,
+    reform: Reform | None = None,
+    *,
+    alt: int = 2,
+) -> Comparison:
+    """Computes a worker under present law and under ``reform``.
+
+    ``reform=None`` compares present law with itself, which is a way of
+    asking for a baseline in the same shape as a comparison.
+    """
+    from anypia_engine.law import reformed_params
+
+    baseline = compute(worker, alt=alt)
+    if reform is None:
+        return Comparison(baseline=baseline, reformed=baseline)
+    if not isinstance(reform, Reform):
+        raise TypeError(
+            f"reform must be a anypia_engine.law.Reform, not "
+            f"{type(reform).__name__}"
+        )
+    reformed = compute(worker, params=reformed_params(reform, alt=alt))
+    return Comparison(baseline=baseline, reformed=reformed)

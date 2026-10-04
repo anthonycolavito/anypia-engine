@@ -1,7 +1,7 @@
 """Verifies the generated historical data module against known SSA values
 and against the oracle paramdump."""
 
-from pyanypia.params import _data2026 as d
+from anypia_engine.params import _data2026 as d
 from tests.oracle_util import load_params
 
 

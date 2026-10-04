@@ -1,4 +1,4 @@
-"""Generates src/pyanypia/params/_data2026.py from the paramdump goldens.
+"""Generates src/anypia_engine/params/_data2026.py from the paramdump goldens.
 
 The paramdump tool (oracle/instrumented/paramdump.cpp) exports PiaParamsAny's
 assembled series per assumption alternative. Historical portions are
@@ -29,7 +29,7 @@ import pathlib
 import re
 
 ORACLE = pathlib.Path(__file__).resolve().parent.parent
-OUT = ORACLE.parent / "src" / "pyanypia" / "params" / "_data2026.py"
+OUT = ORACLE.parent / "src" / "anypia_engine" / "params" / "_data2026.py"
 PIADATA = ORACLE / "vendor" / "oactobjs32" / "piadata"
 
 HIST_RANGES = {

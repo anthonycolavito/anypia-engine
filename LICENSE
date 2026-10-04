@@ -24,14 +24,14 @@ SOFTWARE.
 
 NOTICE
 
-pyanypia is a Python port derived from the C++ source code of the Social
+anypia_engine is a Python port derived from the C++ source code of the Social
 Security Administration's Detailed Calculator (AnyPIA), published by SSA's
 Office of the Chief Actuary. That source code is a work of the United States
 Government and is in the public domain (17 U.S.C. § 105). A pristine copy of
 the C++ source used for this port is vendored under oracle/vendor/ in the
 source repository.
 
-pyanypia is NOT an official Social Security Administration product and is not
+anypia_engine is NOT an official Social Security Administration product and is not
 endorsed by SSA. Benefit amounts it computes are estimates for research
 purposes; do not rely on them for benefit decisions. Consult SSA for official
 benefit determinations.

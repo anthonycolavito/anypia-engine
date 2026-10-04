@@ -1,6 +1,6 @@
 import importlib.metadata
 
-import pyanypia
+import anypia_engine
 
 
 def test_import_and_version() -> None:
@@ -8,4 +8,4 @@ def test_import_and_version() -> None:
     agree. Asserting only a prefix let them drift: pyproject said
     0.1.0.dev0 while the CHANGELOG announced 0.2.0, and nothing noticed.
     """
-    assert pyanypia.__version__ == importlib.metadata.version("pyanypia")
+    assert anypia_engine.__version__ == importlib.metadata.version("anypia_engine")

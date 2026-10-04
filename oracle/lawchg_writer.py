@@ -56,7 +56,7 @@ class Change:
         return [" ".join(first), *self.lines]
 
 
-def write_lawchg(changes: list[Change], title: str = "pyanypia") -> str:
+def write_lawchg(changes: list[Change], title: str = "anypia_engine") -> str:
     """Renders a ``lawchg.dat`` for the given changes."""
     by_name = {c.name: c for c in changes}
     unknown = set(by_name) - set(INDEX)

@@ -1,4 +1,4 @@
-"""A tour of pyanypia, runnable end to end.
+"""A tour of anypia_engine, runnable end to end.
 
     python docs/examples/tour.py
 
@@ -10,7 +10,7 @@ from __future__ import annotations
 
 from datetime import date
 
-import pyanypia as pia
+import anypia_engine as pia
 
 
 def basic_retirement() -> None:
@@ -106,7 +106,7 @@ def batch() -> None:
     print("=" * 68)
     print("Many workers at once")
     print("=" * 68)
-    from pyanypia.batch import compute_many
+    from anypia_engine.batch import compute_many
 
     workers = [
         pia.Worker(
@@ -127,7 +127,7 @@ def pia_files() -> None:
     print("=" * 68)
     print("Reading and writing .pia case files")
     print("=" * 68)
-    from pyanypia.io import PiaCase, read_pia, write_pia
+    from anypia_engine.io import PiaCase, read_pia, write_pia
 
     worker = pia.Worker(
         dob=date(1960, 3, 15),
@@ -147,7 +147,7 @@ def reforms() -> None:
     print("=" * 68)
     print("A worker under present law and under a reform")
     print("=" * 68)
-    from pyanypia.law import ColaChange, NraChange, Reform
+    from anypia_engine.law import ColaChange, NraChange, Reform
 
     worker = pia.Worker(
         dob=date(1960, 3, 15),

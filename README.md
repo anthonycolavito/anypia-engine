@@ -1,4 +1,9 @@
-# pyanypia
+# anypia_engine
+
+> **Archived engine.** This is the full AnyPIA port that was pyanypia 0.2.0,
+> kept as a reference implementation and as the test oracle for
+> [pyanypia](https://github.com/anthonycolavito/pyanypia), which is now a
+> vectorized library of benefit-formula functions. Frozen; fixes only.
 
 A pure-Python port of the calculation engine inside the Social Security
 Administration's **Detailed Calculator (AnyPIA)**, 2026 Trustees Report
@@ -15,17 +20,17 @@ computation rather than to "somewhere in the port".
 ## Install
 
 ```bash
-pip install git+https://github.com/anthonycolavito/pyanypia
+pip install git+https://github.com/anthonycolavito/anypia-engine
 ```
 
 Python 3.11 or newer. The runtime has no dependencies; `pip install
-"pyanypia[pandas]"` adds the DataFrame helpers.
+"anypia_engine[pandas]"` adds the DataFrame helpers.
 
 ## Quickstart
 
 ```python
 from datetime import date
-import pyanypia as pia
+import anypia_engine as pia
 
 worker = pia.Worker(
     dob=date(1960, 3, 15),
@@ -113,7 +118,7 @@ print(s.detail())
 ### Many workers at once
 
 ```python
-from pyanypia.batch import compute_many, compute_frame
+from anypia_engine.batch import compute_many, compute_frame
 
 if __name__ == "__main__":                       # required: see below
     results = compute_many(workers)              # uses every CPU
@@ -134,8 +139,8 @@ entirely.
 The calculator's own case-file format reads and writes:
 
 ```python
-from pyanypia.io import read_pia_file, write_pia
-from pyanypia.params import params_for
+from anypia_engine.io import read_pia_file, write_pia
+from anypia_engine.params import params_for
 
 cases = read_pia_file("cases.pia")
 # a case file carries its own assumptions on line 40; honour them rather
@@ -149,7 +154,7 @@ with open("out.pia", "w") as f:
     f.write(write_pia(cases))
 ```
 
-Files written by pyanypia are read identically by the official calculator —
+Files written by anypia_engine are read identically by the official calculator —
 that equivalence is a test, run over every case in the suites below.
 
 ## Reforms
@@ -158,7 +163,7 @@ that equivalence is a test, run over every case in the suites below.
 reports the difference:
 
 ```python
-from pyanypia.law import Reform, NraChange
+from anypia_engine.law import Reform, NraChange
 
 reform = Reform(nra=NraChange(1990, 2100, variant=1))  # hold the FRA at 65
 print(pia.compare(worker, reform).detail())
@@ -254,7 +259,7 @@ pytest
   divides zero by zero and returns NaN. The official `anypiabdoc.cpp`
   constructs `PiaParamsAny` in the same order, so this is the calculator's
   behaviour rather than an artefact of how we drive it. Since there is no
-  answer to check against, pyanypia does not offer one.
+  answer to check against, anypia_engine does not offer one.
 - **Railroad earnings** are not credited. A `.pia` file containing them
   is refused rather than read with the railroad component dropped.
 - **The Statement's disability estimate is unavailable below full
@@ -262,7 +267,7 @@ pytest
   with an onset date and no waiting-period date, and the freeze
   calculation then requires one — so the official calculator cannot
   produce this estimate either, and there is no answer to check against.
-  pyanypia returns the retirement and survivor estimates, which are
+  anypia_engine returns the retirement and survivor estimates, which are
   unaffected, and records the disability one in
   `StatementResults.unavailable` with the reason; reading
   `disability_pia` raises rather than returning a number. Above full
@@ -274,7 +279,7 @@ pytest
 
 ## Not an official SSA product
 
-pyanypia is derived from SSA/OACT's public-domain Detailed Calculator source
+anypia_engine is derived from SSA/OACT's public-domain Detailed Calculator source
 (17 U.S.C. §105) but is **not** an official Social Security Administration
 product and is not endorsed by SSA. Amounts are research estimates — consult
 SSA for official benefit determinations.

@@ -8,7 +8,7 @@ import pathlib
 
 import pytest
 
-from pyanypia.io import read_pia, write_pia
+from anypia_engine.io import read_pia, write_pia
 from tests.oracle_util import ORACLE, load_sweep, worker_from_spec
 
 SWEEPS = [
@@ -85,7 +85,7 @@ def test_round_trip_is_stable(sweep: str) -> None:
 def test_round_trip_computes_identically(sweep: str) -> None:
     """A case read from file, written back, and read again computes the
     same benefit — the round trip loses nothing the engine uses."""
-    from pyanypia import compute
+    from anypia_engine import compute
 
     specs = load_sweep(sweep)
     cases = _cases(sweep)

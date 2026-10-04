@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to pyanypia are recorded here. The format follows
+All notable changes to anypia_engine are recorded here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project
 uses [semantic versioning](https://semver.org/spec/v2.0.0.html).
 
@@ -23,15 +23,15 @@ below is new to anyone installing this.
   applicable method's PIA and MFB, the method that won, the family
   maximum, each family member's benefit, and the payable amount.
 - **`compare(worker, reform)`** and a declarative reform layer
-  (`pyanypia.law`) covering nine of the calculator's LawChange types:
+  (`anypia_engine.law`) covering nine of the calculator's LawChange types:
   `NRACHANGE`, `COLACHANGE`, `WAGEBASECHG`, `DIDROP5`, `NEWFORMULA`,
   `DECLINEPERC`, `NEWSPECMIN`, `AGE65COMP` and `CHILDCAREDROPOUT`. A
   reform naming anything else is refused rather than silently ignored.
 - **Social Security Statement estimates** (`calculate_statement`).
 - **`.pia` file support** — the official case format, read and written.
-  Files pyanypia writes are read identically by the official calculator,
+  Files anypia_engine writes are read identically by the official calculator,
   which is itself a test.
-- **Batch computation** (`pyanypia.batch`), with a pandas DataFrame
+- **Batch computation** (`anypia_engine.batch`), with a pandas DataFrame
   interface behind the `pandas` extra.
 - **All three Trustees Report alternatives**, I, II and III.
 
@@ -57,4 +57,4 @@ disability estimate is unavailable below full retirement age, because the
 official calculator cannot produce one either — the other estimates are
 returned and the reason is recorded on the result.
 
-[0.2.0]: https://github.com/anthonycolavito/pyanypia/releases/tag/v0.2.0
+[0.2.0]: https://github.com/anthonycolavito/anypia-engine/releases/tag/v0.2.0

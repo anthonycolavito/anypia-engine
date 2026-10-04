@@ -95,17 +95,17 @@ class CaseSpec:
     ibasch: int = 1
 
     def to_worker(self):  # type: ignore[no-untyped-def]
-        """The pyanypia Worker this case describes."""
+        """The anypia_engine Worker this case describes."""
         from datetime import date as _date
 
-        from pyanypia import (
+        from anypia_engine import (
             BenefitType,
             DisabilityPeriod,
             FamilyMember,
             MonthYear,
             Worker,
         )
-        from pyanypia.worker import EarningsProjection, MilitaryService
+        from anypia_engine.worker import EarningsProjection, MilitaryService
 
         def moyr(v):  # type: ignore[no-untyped-def]
             return MonthYear(*v) if v else None
@@ -183,8 +183,8 @@ class CaseSpec:
     def to_pia(self) -> str:
         """Renders the case with the package's own .pia writer, so the
         oracle inputs and the shipped writer cannot drift apart."""
-        from pyanypia.io import PiaCase, write_case
-        from pyanypia.io.pia_file import AssumptionSpec
+        from anypia_engine.io import PiaCase, write_case
+        from anypia_engine.io.pia_file import AssumptionSpec
 
         if self.earnings:
             years = sorted(self.earnings)

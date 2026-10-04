@@ -1,7 +1,7 @@
 """The reform variants the `reform_v1` sweep runs.
 
 Each variant is defined once, in both dialects at the same time: the
-`lawchg.dat` changes the calculator reads, and the `pyanypia.law.Reform`
+`lawchg.dat` changes the calculator reads, and the `anypia_engine.law.Reform`
 that is supposed to mean the same thing. The differential test asserts
 they agree, so pairing them here is what makes the test meaningful --
 two separate lists would drift and still pass.
@@ -26,7 +26,7 @@ if str(ORACLE) not in sys.path:
 
 import lawchg_writer as lcw  # noqa: E402
 
-from pyanypia.law import (  # noqa: E402
+from anypia_engine.law import (  # noqa: E402
     FOR_EVERYONE,
     Age65ComputationPoint,
     ChildCareDropout,
@@ -217,7 +217,7 @@ VARIANTS: list[ReformVariant] = [
 
 
 # Two of the calculator's change types are deliberately absent, and
-# pyanypia.law.Reform rejects them. PiaParamsLC builds the bend-point wage
+# anypia_engine.law.Reform rejects them. PiaParamsLC builds the bend-point wage
 # series in its constructor, which runs before AnypiabDoc calls
 # setHistFqinc(), so setFqBppia() sees a fqinc of all zeros and nothing
 # recomputes it. Every eligibility year from the change onward keeps the
@@ -237,7 +237,7 @@ UNSUPPORTED = ("BPFRACWAGE", "BPMINCONST")
 
 BY_NAME = {v.name: v for v in VARIANTS}
 
-# A reform's changes must all be types pyanypia claims to support, or the
+# A reform's changes must all be types anypia_engine claims to support, or the
 # sweep is testing the oracle against a Reform that means something else.
 _SUPPORTED = {"NRACHANGE", "COLACHANGE", "DIDROP5", "WAGEBASECHG",
               "NEWSPECMIN", "AGE65COMP",

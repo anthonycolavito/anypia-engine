@@ -3,8 +3,8 @@ every year 1937-2105 and every alternative, at the dump's precision."""
 
 import pytest
 
-from pyanypia.dates import MonthYear
-from pyanypia.params import present_law, retire_age
+from anypia_engine.dates import MonthYear
+from anypia_engine.params import present_law, retire_age
 from tests.oracle_util import load_params
 
 ALTS = (1, 2, 3)
